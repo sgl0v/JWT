@@ -21,9 +21,9 @@
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.issuer forKey:@"iss"];
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.subject forKey:@"sub"];
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.audience forKey:@"aud"];
-    [self dictionary:dictionary setObjectIfNotNil:@([theClaimsSet.expirationDate timeIntervalSince1970]) forKey:@"exp"];
-    [self dictionary:dictionary setObjectIfNotNil:@([theClaimsSet.notBeforeDate timeIntervalSince1970]) forKey:@"nbf"];
-    [self dictionary:dictionary setObjectIfNotNil:@([theClaimsSet.issuedAt timeIntervalSince1970]) forKey:@"iat"];
+    [self dictionary:dictionary setObjectIfNotNil:@((NSUInteger)[theClaimsSet.expirationDate timeIntervalSince1970]) forKey:@"exp"];
+    [self dictionary:dictionary setObjectIfNotNil:@((NSUInteger)[theClaimsSet.notBeforeDate timeIntervalSince1970]) forKey:@"nbf"];
+    [self dictionary:dictionary setObjectIfNotNil:@((NSUInteger)[theClaimsSet.issuedAt timeIntervalSince1970]) forKey:@"iat"];
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.identifier forKey:@"jti"];
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.type forKey:@"typ"];
     return [dictionary copy];
