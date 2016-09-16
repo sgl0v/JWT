@@ -107,7 +107,7 @@ static NSString *JWTErrorDomain = @"com.karma.jwt";
     return encodedSegment;
 }
 
-+ (NSString *)encodeSegment:(id)theSegment;
++ (NSString *)encodeSegment:(id)theSegment
 {
     NSError *error;
     return [self encodeSegment:theSegment withError:&error];
@@ -115,28 +115,28 @@ static NSString *JWTErrorDomain = @"com.karma.jwt";
 
 #pragma mark - Public Methods
 
-+ (NSString *)encodeClaimsSet:(JWTClaimsSet *)theClaimsSet withSecret:(NSString *)theSecret;
++ (NSString *)encodeClaimsSet:(JWTClaimsSet *)theClaimsSet withSecret:(NSString *)theSecret
 {
     return [self encodeClaimsSet:theClaimsSet withSecret:theSecret algorithm:[[JWTAlgorithmHS512 alloc] init]];
 }
 
-+ (NSString *)encodeClaimsSet:(JWTClaimsSet *)theClaimsSet withSecret:(NSString *)theSecret algorithm:(id<JWTAlgorithm>)theAlgorithm;
++ (NSString *)encodeClaimsSet:(JWTClaimsSet *)theClaimsSet withSecret:(NSString *)theSecret algorithm:(id<JWTAlgorithm>)theAlgorithm
 {
     NSDictionary *payload = [JWTClaimsSetSerializer dictionaryWithClaimsSet:theClaimsSet];
     return [self encodePayload:payload withSecret:theSecret algorithm:theAlgorithm];
 }
 
-+ (NSString *)encodePayload:(NSDictionary *)thePayload withSecret:(NSString *)theSecret;
++ (NSString *)encodePayload:(NSDictionary *)thePayload withSecret:(NSString *)theSecret
 {
     return [self encodePayload:thePayload withSecret:theSecret algorithm:[[JWTAlgorithmHS512 alloc] init]];
 }
 
-+ (NSString *)encodePayload:(NSDictionary *)thePayload withSecret:(NSString *)theSecret algorithm:(id<JWTAlgorithm>)theAlgorithm;
++ (NSString *)encodePayload:(NSDictionary *)thePayload withSecret:(NSString *)theSecret algorithm:(id<JWTAlgorithm>)theAlgorithm
 {
     return [self encodePayload:thePayload withSecret:theSecret withHeaders:nil algorithm:theAlgorithm];
 }
 
-+ (NSString *)encodePayload:(NSDictionary *)thePayload withSecret:(NSString *)theSecret withHeaders:(NSDictionary *)theHeaders algorithm:(id<JWTAlgorithm>)theAlgorithm;
++ (NSString *)encodePayload:(NSDictionary *)thePayload withSecret:(NSString *)theSecret withHeaders:(NSDictionary *)theHeaders algorithm:(id<JWTAlgorithm>)theAlgorithm
 {
     
     NSError *error = nil;
@@ -149,7 +149,7 @@ static NSString *JWTErrorDomain = @"com.karma.jwt";
     return encodedString;
 }
 
-+ (NSString *)encodePayload:(NSDictionary *)thePayload withSecret:(NSString *)theSecret withHeaders:(NSDictionary *)theHeaders algorithm:(id<JWTAlgorithm>)theAlgorithm withError:(NSError * __autoreleasing *)theError;
++ (NSString *)encodePayload:(NSDictionary *)thePayload withSecret:(NSString *)theSecret withHeaders:(NSDictionary *)theHeaders algorithm:(id<JWTAlgorithm>)theAlgorithm withError:(NSError * __autoreleasing *)theError
 {
     
     NSDictionary *header = @{@"typ": @"JWT", @"alg": theAlgorithm.name};
@@ -227,12 +227,12 @@ static NSString *JWTErrorDomain = @"com.karma.jwt";
     return dictionary;
 }
 
-+ (NSDictionary *)decodeMessage:(NSString *)theMessage withSecret:(NSString *)theSecret withError:(NSError *__autoreleasing *)theError withForcedOption:(BOOL)theForcedOption;
++ (NSDictionary *)decodeMessage:(NSString *)theMessage withSecret:(NSString *)theSecret withError:(NSError *__autoreleasing *)theError withForcedOption:(BOOL)theForcedOption
 {
     return [self decodeMessage:theMessage withSecret:theSecret withError:theError withForcedAlgorithmByName:[[JWTAlgorithmHS512 alloc] init].name skipVerification:theForcedOption];
 }
 
-+ (NSDictionary *)decodeMessage:(NSString *)theMessage withSecret:(NSString *)theSecret withError:(NSError *__autoreleasing *)theError withForcedAlgorithmByName:(NSString *)theAlgorithmName;
++ (NSDictionary *)decodeMessage:(NSString *)theMessage withSecret:(NSString *)theSecret withError:(NSError *__autoreleasing *)theError withForcedAlgorithmByName:(NSString *)theAlgorithmName
 {
     return [self decodeMessage:theMessage withSecret:theSecret withError:theError withForcedAlgorithmByName:theAlgorithmName skipVerification:NO];
 }
@@ -323,12 +323,12 @@ static NSString *JWTErrorDomain = @"com.karma.jwt";
     return result;
 }
 
-+ (NSDictionary *)decodeMessage:(NSString *)theMessage withSecret:(NSString *)theSecret withError:(NSError * __autoreleasing *)theError;
++ (NSDictionary *)decodeMessage:(NSString *)theMessage withSecret:(NSString *)theSecret withError:(NSError * __autoreleasing *)theError
 {
     return [self decodeMessage:theMessage withSecret:theSecret withError:theError withForcedAlgorithmByName:[[JWTAlgorithmHS512 alloc] init].name];
 }
 
-+ (NSDictionary *)decodeMessage:(NSString *)theMessage withSecret:(NSString *)theSecret;
++ (NSDictionary *)decodeMessage:(NSString *)theMessage withSecret:(NSString *)theSecret
 {
     NSError *error = nil;
     NSDictionary *dictionary = [self decodeMessage:theMessage withSecret:theSecret withError:&error];

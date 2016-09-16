@@ -34,7 +34,7 @@
     return encodedSegment;
 }
 
-+ (NSObject *)JSONObjectFromBase64String:(NSString *)base64String;
++ (NSObject *)JSONObjectFromBase64String:(NSString *)base64String
 {
     NSData *data = [NSData dataWithBase64String:base64String];
     

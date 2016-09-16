@@ -15,21 +15,21 @@
     return @[@"iss", @"sub", @"aud", @"exp", @"nbf", @"iat", @"jti", @"typ"];
 }
 
-+ (NSDictionary *)dictionaryWithClaimsSet:(JWTClaimsSet *)theClaimsSet;
++ (NSDictionary *)dictionaryWithClaimsSet:(JWTClaimsSet *)theClaimsSet
 {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.issuer forKey:@"iss"];
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.subject forKey:@"sub"];
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.audience forKey:@"aud"];
-    [self dictionary:dictionary setObjectIfNotNil:@((NSUInteger)[theClaimsSet.expirationDate timeIntervalSince1970]) forKey:@"exp"];
-    [self dictionary:dictionary setObjectIfNotNil:@((NSUInteger)[theClaimsSet.notBeforeDate timeIntervalSince1970]) forKey:@"nbf"];
-    [self dictionary:dictionary setObjectIfNotNil:@((NSUInteger)[theClaimsSet.issuedAt timeIntervalSince1970]) forKey:@"iat"];
+    [self dictionary:dictionary setDateIfNotNil:theClaimsSet.expirationDate forKey:@"exp"];
+    [self dictionary:dictionary setDateIfNotNil:theClaimsSet.notBeforeDate forKey:@"nbf"];
+    [self dictionary:dictionary setDateIfNotNil:theClaimsSet.issuedAt forKey:@"iat"];
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.identifier forKey:@"jti"];
     [self dictionary:dictionary setObjectIfNotNil:theClaimsSet.type forKey:@"typ"];
     return [dictionary copy];
 }
 
-+ (JWTClaimsSet *)claimsSetWithDictionary:(NSDictionary *)theDictionary;
++ (JWTClaimsSet *)claimsSetWithDictionary:(NSDictionary *)theDictionary
 {
     JWTClaimsSet *claimsSet = [[JWTClaimsSet alloc] init];
     claimsSet.issuer = [theDictionary objectForKey:@"iss"];
@@ -43,12 +43,20 @@
     return claimsSet;
 }
 
-+ (void)dictionary:(NSMutableDictionary *)theDictionary setObjectIfNotNil:(id)theObject forKey:(id<NSCopying>)theKey;
++ (void)dictionary:(NSMutableDictionary *)theDictionary setObjectIfNotNil:(id)theObject forKey:(id<NSCopying>)theKey
 {
     if (!theObject)
         return;
     
     [theDictionary setObject:theObject forKey:theKey];
+}
+
++ (void)dictionary:(NSMutableDictionary *)theDictionary setDateIfNotNil:(NSDate*)theObject forKey:(id<NSCopying>)theKey
+{
+    if (!theObject)
+        return;
+    
+    [theDictionary setObject:@((NSUInteger)[theObject timeIntervalSince1970]) forKey:theKey];
 }
 
 @end

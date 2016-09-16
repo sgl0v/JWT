@@ -14,12 +14,12 @@
 
 @implementation JWTAlgorithmHS256
 
-- (NSString *)name;
+- (NSString *)name
 {
     return @"HS256";
 }
 
-- (NSData *)encodePayload:(NSString *)theString withSecret:(NSString *)theSecret;
+- (NSData *)encodePayload:(NSString *)theString withSecret:(NSString *)theSecret
 {
     const char *cString = [theString cStringUsingEncoding:NSUTF8StringEncoding];
     const char *cSecret = [theSecret cStringUsingEncoding:NSUTF8StringEncoding];
